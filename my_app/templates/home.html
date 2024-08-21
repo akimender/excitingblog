@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+  {% if not user.is_authenticated %}
+    <form action="{% url 'home' %}" method="post" class="login">
+      <h1>Login</h1>
+      {% csrf_token %} {{ form.as_p }}
+      <input type="hidden" name="next" value="{{ next }}" />
+      <button type="submit" class="btn submit">Login</button>
+    </form>
+  {% else %}
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+      <h1>Welcome {{user.username}}</h1>
+      <p>This website was created by akimender using django!</p>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

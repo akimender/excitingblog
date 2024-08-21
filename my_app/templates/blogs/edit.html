@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/blogs/blog-detail.css' %}" />
+{% endblock %}
+{% block content %}
+<section class="blog-container">
+    <h1>Edit Blog</h1>
+    <form action="" method="post" class="form">
+        {% csrf_token %}
+        <table>
+        {{ form.as_table }}
+        </table>
+        <button type="submit" class="submit-button">Post!</button>
+    </form>
+</section>
+{% endblock %}

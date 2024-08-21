@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/blogs/blog-detail.css' %}" />
+{% endblock %}
+{% block content %}
+<section class="blog-container">
+  <div class="blog-post">
+    <h1>{{ blog.title }}</h1>
+    <h3>{{ blog.user.username }}</h3>
+    {% if blog.user == user %}
+      <a href="{% url 'blog-edit' blog.pk %}">Edit</a>
+      <form action="{% url 'blog-delete' blog.pk %}" method="post" class="form">
+        {% csrf_token %}
+        <button type="submit" class="submit-button">Delete</button>
+      </form>
+    {% endif %}
+    <p>{{ blog.description }}</p>
+  </div>
+  
+  <h2>Comments</h2>
+  <form action="" method="post" class="form">
+    {% csrf_token %}
+    <div class="blog-container">
+      <table>
+        {{ form.as_table }}
+      </table>
+      <button type="submit" class="submit-button">Post!</button>
+    </div>
+  </form>
+    {% for comment in comments %}
+      <div class="comment-post">
+        <p>{{ comment.user.username }}</p>
+        <p>{{ comment.text }}</p>
+      </div>
+    {% endfor %}
+</section>
+{% endblock %}

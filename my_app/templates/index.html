@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <div class="index-container">
+    <h1>Blogs!</h1>
+    <form action="" method="post" class="form">
+      {% csrf_token %}
+      <div class="index-container">
+        <table>
+          {{ form.as_table }}
+        </table>
+        <button type="submit" class="submit-button">Post!</button>
+      </div>
+    </form>
+  
+    {% for blog in blogs %}
+      <div class="blog-post">
+        <a href="{% url 'blog-detail' blog.id %}">{{ blog.title }}</a>
+        <p>by {{blog.user.username}}</p>
+        <p>{{blog.description}}</p>
+        {% if blog.comments.count > 0 %}
+          <p>{{blog.comments.count}} comment(s)</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
